@@ -19,7 +19,7 @@ class WeatherData extends Component {
         this.state = {
             weeklyForecast: [],
             cityData: {},
-            dayToDisplay: ""
+            dayToDisplay: {}
         };
         this.chooseDay = this.chooseDay.bind(this);
     }
@@ -32,11 +32,6 @@ class WeatherData extends Component {
             this.setState({weeklyForecast: response.list, cityData: response.city})}
         )
         .catch(error => console.log(error));
-        // .then(results => {
-        //     const data = results.json();
-        //     console.log(data);
-        //     return data;
-        // })
     }
 
     setDate(epoch) {
@@ -70,9 +65,9 @@ class WeatherData extends Component {
         return cleanTime;
     }
 
-    chooseDay() {
-        console.log('we have props');
-        this.setState({dayToDisplay: this.props.date});
+    chooseDay(dayInfo) {
+        console.log('print, dammit', dayInfo);
+        this.setState({dayToDisplay: dayInfo});
     }
 
     render() {
@@ -82,26 +77,23 @@ class WeatherData extends Component {
                 <Weather>
                     {this.state.weeklyForecast.map((dailyForecasts) => {
                         return (
-                            <WeatherCard onClick={this.chooseDay}
+                            <WeatherCard onClick={() => this.chooseDay(dailyForecasts)}
                                 date={this.setDate(dailyForecasts.dt)}
                                 temp={dailyForecasts.temp}
                                 weather={dailyForecasts.weather}
                                 weatherDescription={dailyForecasts.weather.description}
+                                selected={dailyForecasts === this.state.dayToDisplay}
                             />
                         );
                     })}
                     <ChosenDay>
-                        {this.state.weeklyForecast.map((dailyForecasts) => {
-                            return (
-                                <DailyInfo
-                                    sunrise={`${this.setTime(dailyForecasts.sunrise)} AM`}
-                                    sunset={`${this.setTime(dailyForecasts.sunset)} PM`}
-                                    wind={dailyForecasts.speed}
-                                    humidity={`${dailyForecasts.humidity}%`}
-                                    pressure={dailyForecasts.pressure}
-                                />
-                            );
-                        })}
+                        <DailyInfo
+                            sunrise={`${this.setTime(this.state.dayToDisplay.sunrise)} AM`}
+                            sunset={`${this.setTime(this.state.dayToDisplay.sunset)} PM`}
+                            wind={this.state.dayToDisplay.speed}
+                            humidity={`${this.state.dayToDisplay.humidity}%`}
+                            pressure={this.state.dayToDisplay.pressure}
+                        />
                     </ChosenDay>
                 </Weather>
             </>

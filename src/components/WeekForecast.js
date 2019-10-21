@@ -1,16 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import DailyInfo from './DailyInfo'
-
-const Card = styled.div`
-    width: 150px;   
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px;
-    :active {
-        background-color: gray;
-    }
-`;
 
 const Img = styled.img`
     width: 60px;
@@ -35,18 +24,23 @@ const StyledMinTemp = styled.span`
     color: darkgray;
 `;
 
+const white = '#fff';
+const gray = '#888';
+const Card = styled.div`
+    width: 150px;   
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    background-color: ${props => props.selected ? gray : white};
+`;
+
 class WeekForecast extends React.Component {
-
-    // chooseDay() {
-    //     console.log('we have props');
-    //     this.setState({onSelectData: this.props.selectData});
-    // }
-
     render() {
+        
         console.log(this.props);
         return (
             <Forecast>
-                <Card>
+                <Card selected={this.props.selected} onClick={this.props.onClick}>
                     <StyledP>{this.props.date}</StyledP>
                     <Img src={this.props.image}/>
                     <StyledP>
@@ -60,8 +54,3 @@ class WeekForecast extends React.Component {
 }
 
 export default WeekForecast;
-
-{/* <DailyInfo infos={this.state.onSelectData}/> */}
-            {/* {this.state.onSelectData.map((day) => {
-                <DailyInfo infos={day} />
-            })} */}
