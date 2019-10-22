@@ -15,6 +15,7 @@ const StyledInfo = styled.div`
 
 const StyledP = styled.p`
     margin: 4px;
+    color: #fff;
 `;
 
 const Card = styled.div`
@@ -29,16 +30,6 @@ const Card = styled.div`
 
 class DailyInfo extends React.Component {
     render() {
-        // console.log('here', this.props.infos);
-        // if(this.props.infos.length) {
-        //     return (
-        //         <p>hi</p>
-        //     );
-        // } else {
-        //     return (
-        //         <div/>
-        //     );
-        // }
         if(this.props.pressure === undefined) {
             return <div/>
         } else {
@@ -56,11 +47,3 @@ class DailyInfo extends React.Component {
 }
 
 export default DailyInfo;
-
-{/* <DailyInfo
-    sunrise={`${this.setTime(this.state.dayToDisplay.sunrise)} AM`}
-    sunset={`${this.setTime(this.state.dayToDisplay.sunset)} PM`}
-    wind={this.state.dayToDisplay.speed}
-    humidity={`${this.state.dayToDisplay.humidity}%`}
-    pressure={this.state.dayToDisplay.pressure}
-/> */}

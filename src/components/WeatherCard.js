@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import WeekForecast from './WeekForecast'
 
 class WeatherCard extends React.Component {
