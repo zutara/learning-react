@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import WeatherCard from './WeatherCard';
-import DailyInfo from './DailyInfo'
+import DailyInfo from './DailyInfo';
+import spinner from '../spinner.svg';
 
 const Weather = styled.div`
     display: flex;
@@ -36,6 +37,17 @@ const StyledForm = styled.form`
     margin: 5px;
 `;
 
+const StyledImage = styled.img`
+    display: flex;
+    align-content: center;
+`;
+
+function LoadingState() {
+    return (
+        <StyledImage src={spinner} />
+    )
+}
+
 class WeatherData extends Component {
     constructor() {
         super();
@@ -45,6 +57,7 @@ class WeatherData extends Component {
             dayToDisplay: {},
             cityToSearch: 'Atlanta',
             errorMessage: '',
+            isLoading: true
         };
         this.chooseDay = this.chooseDay.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -63,8 +76,11 @@ class WeatherData extends Component {
             if(response.cod !== "200") {
                 this.setState({errorMessage: response.message})
             } else {
-                this.setState({weeklyForecast: response.list, cityData: response.city})}
-            }
+                this.setState({weeklyForecast: response.list, cityData: response.city});
+                console.log('setbefore', this.state.isLoading);
+                this.setState({isLoading: false});
+                console.log('setafter', this.state.isLoading);
+            }}
         )
         .catch(error => 
             {console.log(error);
@@ -141,29 +157,35 @@ class WeatherData extends Component {
                         </label>
                         <StyledInput2 type="submit" value="Submit" />
                     </StyledForm>
-                    <StyledH1><b>{`${this.state.cityData.name}, ${this.state.cityData.country}`}</b></StyledH1>
-                    <Weather>
-                        {this.state.weeklyForecast.map((dailyForecasts) => {
-                            return (
-                                <WeatherCard onClick={() => this.chooseDay(dailyForecasts)}
-                                    date={this.setDate(dailyForecasts.dt)}
-                                    temp={dailyForecasts.temp}
-                                    weather={dailyForecasts.weather}
-                                    weatherDescription={dailyForecasts.weather.description}
-                                    selected={dailyForecasts === this.state.dayToDisplay}
-                                />
-                            );
-                        })}
-                        <ChosenDay>
-                            <DailyInfo
-                                sunrise={`${this.setTime(this.state.dayToDisplay.sunrise)} AM`}
-                                sunset={`${this.setTime(this.state.dayToDisplay.sunset)} PM`}
-                                wind={this.state.dayToDisplay.speed}
-                                humidity={`${this.state.dayToDisplay.humidity}%`}
-                                pressure={this.state.dayToDisplay.pressure}
-                            />
-                        </ChosenDay>
-                    </Weather>
+                    {this.state.isLoading ?
+                        <LoadingState />
+                    :
+                        <>
+                            <StyledH1><b>{`${this.state.cityData.name}, ${this.state.cityData.country}`}</b></StyledH1>
+                            <Weather>
+                                {this.state.weeklyForecast.map((dailyForecasts) => {
+                                    return (
+                                        <WeatherCard onClick={() => this.chooseDay(dailyForecasts)}
+                                            date={this.setDate(dailyForecasts.dt)}
+                                            temp={dailyForecasts.temp}
+                                            weather={dailyForecasts.weather}
+                                            weatherDescription={dailyForecasts.weather.description}
+                                            selected={dailyForecasts === this.state.dayToDisplay}
+                                        />
+                                    );
+                                })}
+                                <ChosenDay>
+                                    <DailyInfo
+                                        sunrise={`${this.setTime(this.state.dayToDisplay.sunrise)} AM`}
+                                        sunset={`${this.setTime(this.state.dayToDisplay.sunset)} PM`}
+                                        wind={this.state.dayToDisplay.speed}
+                                        humidity={`${this.state.dayToDisplay.humidity}%`}
+                                        pressure={this.state.dayToDisplay.pressure}
+                                    />
+                                </ChosenDay>
+                            </Weather>
+                        </>
+                    }
                 </>
             )
         }
