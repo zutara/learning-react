@@ -60,10 +60,10 @@ class Dogs extends React.Component {
         return (
             <>
                 <StyledDiv>
-                    <StyledImg src={this.state.dogImage}/>
+                    <StyledButton onClick={this.handleChange}>summon good boye</StyledButton>
                 </StyledDiv>
                 <StyledDiv>
-                    <StyledButton onClick={this.handleChange}>summon good boye</StyledButton>
+                    <StyledImg src={this.state.dogImage}/>
                 </StyledDiv>
             </>
         )

@@ -8,7 +8,8 @@ const Img = styled.img`
 const Forecast = styled.div`
     display: inline-flex;
     flex-direction: row;
-    padding: 5px;
+    padding-right: 3px;
+    padding-left: 2px;
 `;
 
 const StyledP = styled.p`
@@ -34,9 +35,10 @@ const gray = '#888';
 const black = '#000';
 const Card = styled.div`
     width: 150px;   
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-color: ${gray};
+    border-width: 1px;
+    border-style: solid;
     transition: 0.3s;
-    border-radius: 5px;
     color: ${props => props.selected ? white : black};
     background-color: ${props => props.selected ? gray : white};
 `;
@@ -44,7 +46,7 @@ const Card = styled.div`
 class WeekForecast extends React.Component {
     render() {
         return (
-            <Forecast>
+            <Forecast id="forecast">
                 <Card selected={this.props.selected} onClick={this.props.onClick}>
                     <StyledP>{this.props.date}</StyledP>
                     <StyledP>

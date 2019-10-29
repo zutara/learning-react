@@ -18,16 +18,6 @@ const StyledP = styled.p`
     color: #fff;
 `;
 
-const Card = styled.div`
-    width: 150px;   
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px;
-    :active {
-        background-color: gray;
-    }
-`;
-
 class DailyInfo extends React.Component {
     render() {
         if(this.props.pressure === undefined) {

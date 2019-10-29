@@ -25,7 +25,7 @@ import './App.css';
 const StyledDiv = styled.div`
   height: 50px;
   width: 100%;
-  background-color: #a8c;
+  background-color: #dcd;
 `;
 
 const StyledImg = styled.img`

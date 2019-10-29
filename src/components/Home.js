@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Calculator from './Calculator/Calculator'
 
 const StyledP = styled.p`
     display: flex;
@@ -10,7 +11,10 @@ const StyledP = styled.p`
 class Home extends React.Component {
     render() {
         return (
-            <StyledP>my name is laura</StyledP>
+            <>
+                <StyledP>my name is laura</StyledP>
+                <Calculator />
+            </>
         )
     }
 }

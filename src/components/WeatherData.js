@@ -36,15 +36,16 @@ const StyledInput2 = styled.input`
 const StyledForm = styled.form`
     margin: 5px;
 `;
-
-const StyledImage = styled.img`
+const StyledImgDiv = styled.div`
     display: flex;
-    align-content: center;
+    justify-content: center;
 `;
 
 function LoadingState() {
     return (
-        <StyledImage src={spinner} />
+        <StyledImgDiv>
+            <img src={spinner} />
+        </StyledImgDiv>
     )
 }
 
@@ -162,7 +163,7 @@ class WeatherData extends Component {
                     :
                         <>
                             <StyledH1><b>{`${this.state.cityData.name}, ${this.state.cityData.country}`}</b></StyledH1>
-                            <Weather>
+                            <Weather id="weeklyWeather">
                                 {this.state.weeklyForecast.map((dailyForecasts) => {
                                     return (
                                         <WeatherCard onClick={() => this.chooseDay(dailyForecasts)}
